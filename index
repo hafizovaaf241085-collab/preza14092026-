@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Постановка целей по Scrum</title>
+
+<style>
+
+:root {
+    --navy: #0A1F3A;
+    --blue: #1470BE;
+    --cyan: #2EBEE1;
+    --light: #EFF7FC;
+    --white: #FFFFFF;
+    --text: #253545;
+    --muted: #697A8C;
+    --green: #25A474;
+    --orange: #EF9D34;
+    --red: #D74B4B;
+    --border: #D3E4F0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    overflow: hidden;
+}
+
+.presentation {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* =========================
+   SLIDES
+========================= */
+
+.slide {
+    position: absolute;
+    inset: 0;
+
+    display: none;
+
+    width: 100%;
+    height: 100%;
+
+    padding: 55px 70px 65px;
+
+    background: var(--white);
+}
+
+.slide.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* =========================
+   COVER
+========================= */
+
+.slide.cover {
+    background: var(--navy);
+    color: var(--white);
+
+    justify-content: center;
+
+    padding-left: 10vw;
+}
+
+.cover-line {
+    position: absolute;
+
+    left: 5vw;
+    top: 15%;
+    bottom: 15%;
+
+    width: 8px;
+
+    background: var(--cyan);
+}
+
+.cover h1 {
+    font-size: clamp(42px, 5vw, 72px);
+    line-height: 1.05;
+
+    margin: 0 0 28px;
+
+    font-weight: 800;
+}
+
+.cover .subtitle {
+    color: var(--cyan);
+
+    font-size: clamp(20px, 2vw, 30px);
+
+    margin-bottom: 65px;
+}
+
+.cover .description {
+    color: #DCEBF5;
+
+    font-size: clamp(18px, 1.5vw, 25px);
+
+    line-height: 1.45;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header {
+    display: flex;
+    align-items: center;
+
+    margin-bottom: 45px;
+}
+
+.header-accent {
+    width: 7px;
+    height: 45px;
+
+    background: var(--cyan);
+
+    margin-right: 18px;
+}
+
+.header h2 {
+    margin: 0;
+
+    color: var(--navy);
+
+    font-size: clamp(26px, 2.5vw, 38px);
+
+    line-height: 1.1;
+}
+
+.section-number {
+    margin-left: auto;
+
+    color: var(--blue);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+/* =========================
+   CARDS
+========================= */
+
+.cards {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 25px;
+
+    width: 100%;
+}
+
+.card {
+    position: relative;
+
+    background: var(--light);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 28px;
+
+    overflow: hidden;
+}
+
+.card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 6px;
+
+    background: var(--blue);
+}
+
+.card.cyan::before {
+    background: var(--cyan);
+}
+
+.card.green::before {
+    background: var(--green);
+}
+
+.card.orange::before {
+    background: var(--orange);
+}
+
+.card.red::before {
+    background: var(--red);
+}
+
+.card h3 {
+    margin: 0 0 20px;
+
+    color: var(--navy);
+
+    font-size: 21px;
+}
+
+.card p {
+    margin: 0;
+
+    color: var(--text);
+
+    font-size: 17px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   BULLETS
+========================= */
+
+.bullets {
+    margin: 10px 0 0;
+
+    padding-left: 0;
+
+    list-style: none;
+
+    max-width: 1000px;
+}
+
+.bullets li {
+    position: relative;
+
+    margin-bottom: 20px;
+
+    padding-left: 30px;
+
+    font-size: clamp(17px, 1.5vw, 23px);
+
+    line-height: 1.45;
+}
+
+.bullets li::before {
+    content: "•";
+
+    position: absolute;
+
+    left: 0;
+
+    color: var(--blue);
+
+    font-size: 30px;
+
+    line-height: 20px;
+}
+
+/* =========================
+   FORMULA
+========================= */
+
+.formula {
+    margin-top: auto;
+
+    padding: 20px 25px;
+
+    border-radius: 12px;
+
+    background: var(--light);
+
+    border-left: 6px solid var(--cyan);
+
+    font-size: 18px;
+}
+
+.formula strong {
+    display: block;
+
+    color: var(--navy);
+
+    margin-bottom: 7px;
+}
+
+/* =========================
+   STEPS
+========================= */
+
+.steps {
+    display: grid;
+
+    grid-template-columns: repeat(5, 1fr);
+
+    gap: 18px;
+}
+
+.step {
+    position: relative;
+
+    background: var(--light);
+
+    border: 1px solid var(--border);
+
+    border-radius: 14px;
+
+    padding: 25px 20px;
+
+    min-height: 260px;
+}
+
+.step-number {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--blue);
+
+    color: white;
+
+    font-weight: bold;
+
+    margin-bottom: 25px;
+}
+
+.step h3 {
+    font-size: 17px;
+
+    color: var(--navy);
+
+    margin-bottom: 18px;
+}
+
+.step p {
+    font-size: 15px;
+
+    line-height: 1.45;
+
+    color: var(--text);
+}
+
+/* =========================
+   CHECKLIST
+========================= */
+
+.checklist {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 15px;
+}
+
+.check {
+    padding: 18px 20px;
+
+    border-radius: 10px;
+
+    background: var(--light);
+
+    border: 1px solid var(--border);
+
+    font-size: 16px;
+}
+
+.check span {
+    color: var(--green);
+
+    font-weight: bold;
+
+    margin-right: 8px;
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+.navigation {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 55px;
+
+    display: flex;
+    align-items: center;
+
+    padding: 0 25px;
+
+    background: rgba(10,31,58,.96);
+
+    z-index: 1000;
+}
+
+.nav-button {
+    border: 0;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 25px;
+
+    width: 45px;
+    height: 40px;
+
+    cursor: pointer;
+
+    border-radius: 8px;
+}
+
+.nav-button:hover {
+    background: rgba(255,255,255,.12);
+}
+
+.progress {
+    flex: 1;
+
+    height: 5px;
+
+    background: rgba(255,255,255,.2);
+
+    margin: 0 20px;
+
+    border-radius: 5px;
+
+    overflow: hidden;
+}
+
+.progress-bar {
+    width: 0;
+    height: 100%;
+
+    background: var(--cyan);
+
+    transition: width .3s ease;
+}
+
+.slide-counter {
+    color: white;
+
+    font-size: 13px;
+
+    min-width: 55px;
+
+    text-align: right;
+}
+
+.fullscreen {
+    margin-left: 20px;
+}
+
+/* =========================
+   FINAL SLIDE
+========================= */
+
+.final {
+    background: var(--navy);
+
+    color: white;
+}
+
+.final .header h2 {
+    color: white;
+}
+
+.final .header-accent {
+    background: var(--cyan);
+}
+
+.final .bullets li {
+    color: white;
+}
+
+.final .bullets li::before {
+    color: var(--cyan);
+}
+
+.final-question {
+    margin-top: 35px;
+
+    color: var(--cyan);
+
+    font-size: 22px;
+
+    font-weight: bold;
+}
+
+.final-answer {
+    margin-top: 12px;
+
+    color: white;
+
+    font-size: 30px;
+
+    font-weight: bold;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .slide {
+        padding: 35px 35px 70px;
+    }
+
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    .steps {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .step {
+        min-height: 180px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .slide {
+        padding: 25px 22px 70px;
+    }
+
+    .header {
+        margin-bottom: 25px;
+    }
+
+    .header h2 {
+        font-size: 24px;
+    }
+
+    .steps {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+
+    .checklist {
+        grid-template-columns: 1fr;
+    }
+
+    .cover {
+        padding-left: 50px !important;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<div class="presentation">
+
+
+<!-- =====================================================
+     SLIDE 1
+===================================================== -->
+
+<section class="slide cover active">
+
+    <div class="cover-line"></div>
+
+    <h1>
+        ПОСТАНОВКА ЦЕЛЕЙ<br>
+        ПО SCRUM
+    </h1>
+
+    <div class="subtitle">
+        Практика для руководителей среднего звена
+    </div>
+
+    <div class="description">
+        От «у нас есть задачи» →
+        к «у нас есть понятная цель,
+        приоритет и измеримый результат»
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 2
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Зачем руководителю Scrum-подход к целям
+        </h2>
+
+        <div class="section-number">
+            01
+        </div>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>ФОКУС</h3>
+
+            <p>
+                Команда понимает,
+                что важно именно сейчас —
+                и что можно не делать.
+            </p>
+
+        </div>
+
+
+        <div class="card cyan">
+
+            <h3>ПРОЗРАЧНОСТЬ</h3>
+
+            <p>
+                Цель, результат и прогресс
+                видны руководителю
+                и команде.
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>УПРАВЛЯЕМОСТЬ</h3>
+
+            <p>
+                Проблемы поднимаются
+                раньше, а не в конце
+                периода.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Scrum — не просто набор встреч и доска задач.
+        </li>
+
+        <li>
+            Для руководителя это короткий управленческий цикл:
+            цель → приоритет → действие → проверка → корректировка.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 3
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Главная ошибка: путать цель, задачу и результат
+        </h2>
+
+        <div class="section-number">
+            02
+        </div>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>ЦЕЛЬ</h3>
+
+            <p>
+                Что хотим изменить?<br><br>
+
+                Пример:<br>
+                сократить срок обработки
+                заявки клиента.
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>РЕЗУЛЬТАТ</h3>
+
+            <p>
+                Как поймём,
+                что цель достигнута?<br><br>
+
+                Пример:<br>
+                средний срок ≤ 2 часов.
+            </p>
+
+        </div>
+
+
+        <div class="card orange">
+
+            <h3>ЗАДАЧИ</h3>
+
+            <p>
+                Что конкретно нужно
+                сделать?<br><br>
+
+                Пример:<br>
+                убрать два лишних этапа
+                согласования.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Хорошая цель описывает изменение в бизнесе,
+            а не список действий.
+        </li>
+
+        <li>
+            Формулировка «сделать / провести / внедрить»
+            сама по себе ещё не доказывает ценность.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 4
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Логика постановки цели в Scrum
+        </h2>
+
+        <div class="section-number">
+            03
+        </div>
+
+    </div>
+
+
+    <div class="steps">
+
+        <div class="step">
+
+            <div class="step-number">1</div>
+
+            <h3>БИЗНЕС-ПРИОРИТЕТ</h3>
+
+            <p>
+                Что сейчас важнее всего?
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">2</div>
+
+            <h3>ЦЕЛЬ СПРИНТА</h3>
+
+            <p>
+                Какое изменение должно
+                произойти?
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">3</div>
+
+            <h3>КРИТЕРИЙ УСПЕХА</h3>
+
+            <p>
+                Как измерим результат?
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">4</div>
+
+            <h3>ПЛАН ДЕЙСТВИЙ</h3>
+
+            <p>
+                Какие задачи приведут
+                к результату?
+            </p>
+
+        </div>
+
+
+        <div class="step">
+
+            <div class="step-number">5</div>
+
+            <h3>ПРОВЕРКА</h3>
+
+            <p>
+                Что получили
+                и что меняем?
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 5
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Как формулировать сильную цель
+        </h2>
+
+        <div class="section-number">
+            04
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Одна цель отвечает на вопрос:
+            «Какое изменение должно произойти к концу цикла?»
+        </li>
+
+        <li>
+            Цель связана с бизнес-эффектом:
+            скорость, качество, выручка, затраты,
+            клиентский опыт или риск.
+        </li>
+
+        <li>
+            Есть один главный критерий успеха —
+            показатель или наблюдаемый результат.
+        </li>
+
+        <li>
+            Цель достижима в горизонте спринта;
+            крупную цель дробим на несколько циклов.
+        </li>
+
+        <li>
+            Команда понимает, зачем эта цель нужна бизнесу.
+        </li>
+
+    </ul>
+
+
+    <div class="formula">
+
+        <strong>ФОРМУЛА</strong>
+
+        Изменение + результат + срок / граница цикла
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 6
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Плохая и хорошая постановка
+        </h2>
+
+        <div class="section-number">
+            05
+        </div>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card red">
+
+            <h3>❌ ПЛОХО</h3>
+
+            <p>
+                «Обновить регламент продаж.<br><br>
+
+                Провести обучение менеджеров.<br><br>
+
+                Настроить CRM.<br><br>
+
+                Проблема: описаны действия,
+                но неясно, что должно
+                измениться в бизнесе.»
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>✓ ХОРОШО</h3>
+
+            <p>
+                «Сократить долю просроченных
+                коммерческих предложений
+                с 18% до 8% к концу спринта.»
+                <br><br>
+                Дальше команда сама определяет
+                необходимые действия.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 7
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Роль руководителя среднего звена
+        </h2>
+
+        <div class="section-number">
+            06
+        </div>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>ДО ЦИКЛА</h3>
+
+            <p>
+                • объяснить приоритет<br><br>
+                • согласовать цель<br><br>
+                • определить границы<br><br>
+                • проверить ресурсы
+            </p>
+
+        </div>
+
+
+        <div class="card cyan">
+
+            <h3>В ЦИКЛЕ</h3>
+
+            <p>
+                • убрать препятствия<br><br>
+                • не менять приоритеты
+                без причины<br><br>
+                • смотреть на результат<br><br>
+                • эскалировать риски
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>ПОСЛЕ ЦИКЛА</h3>
+
+            <p>
+                • принять результат<br><br>
+                • сравнить с критерием<br><br>
+                • разобрать отклонения<br><br>
+                • скорректировать следующий цикл
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 8
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Не превращаем Scrum в микроменеджмент
+        </h2>
+
+        <div class="section-number">
+            07
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Руководитель задаёт направление и критерий результата —
+            не диктует каждый шаг.
+        </li>
+
+        <li>
+            Контроль строится вокруг результата,
+            рисков и блокеров.
+        </li>
+
+        <li>
+            Если задача изменилась —
+            объясняем, почему изменился приоритет.
+        </li>
+
+        <li>
+            Если команда постоянно «не успевает»,
+            сначала проверяем качество цели и объём работы,
+            а не усиливаем давление.
+        </li>
+
+        <li>
+            Главный вопрос руководителя:
+            «Что мешает достичь цели?»
+        </li>
+
+    </ul>
+
+
+    <div class="formula">
+
+        <strong>ПРАВИЛО</strong>
+
+        Контроль = прозрачность + помощь + ответственность
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 9
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Планирование спринта: 5 вопросов
+        </h2>
+
+        <div class="section-number">
+            08
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li><strong>Зачем?</strong></li>
+
+        <li><strong>Что изменится?</strong></li>
+
+        <li><strong>Как измерим?</strong></li>
+
+        <li><strong>Что обязательно сделаем?</strong></li>
+
+        <li><strong>Что может помешать?</strong></li>
+
+    </ul>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 10
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Ежедневное управление: коротко и по делу
+        </h2>
+
+        <div class="section-number">
+            09
+        </div>
+
+    </div>
+
+
+    <div class="cards">
+
+        <div class="card">
+
+            <h3>3 ВОПРОСА</h3>
+
+            <p>
+                Что сделали?<br><br>
+
+                Что делаем дальше?<br><br>
+
+                Что мешает?
+            </p>
+
+        </div>
+
+
+        <div class="card orange">
+
+            <h3>НЕ НУЖНО</h3>
+
+            <p>
+                Длинные отчёты.<br><br>
+
+                Пересказ всех действий.<br><br>
+
+                Контроль ради контроля.
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>НУЖНО</h3>
+
+            <p>
+                Раннее выявление блокеров.<br><br>
+
+                Фокус на цели.<br><br>
+
+                Быстрое решение проблем.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 11
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Review: оцениваем не занятость, а ценность
+        </h2>
+
+        <div class="section-number">
+            10
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Цель достигнута? — Да / частично / нет.
+        </li>
+
+        <li>
+            Что изменилось в показателе или процессе?
+        </li>
+
+        <li>
+            Какие решения дали эффект?
+        </li>
+
+        <li>
+            Что не сработало и почему?
+        </li>
+
+        <li>
+            Что переносим в следующий цикл?
+        </li>
+
+        <li>
+            Какой вывод должен сделать руководитель?
+        </li>
+
+    </ul>
+
+
+    <div class="cards">
+
+        <div class="card red">
+
+            <h3>ВАЖНО</h3>
+
+            <p>
+                «Мы сделали 90% задач»
+                ≠
+                «мы достигли цели».
+            </p>
+
+        </div>
+
+
+        <div class="card green">
+
+            <h3>ФОКУС</h3>
+
+            <p>
+                Результат важнее количества
+                закрытых карточек.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 12
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Ретроспектива руководителя
+        </h2>
+
+        <div class="section-number">
+            11
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Что помогало команде двигаться к цели?
+        </li>
+
+        <li>
+            Что системно тормозило?
+        </li>
+
+        <li>
+            Где мы сами создавали лишнюю работу?
+        </li>
+
+        <li>
+            Какие решения нужно изменить
+            в следующем цикле?
+        </li>
+
+        <li>
+            Что один руководитель может улучшить уже завтра?
+        </li>
+
+    </ul>
+
+
+    <div class="formula">
+
+        <strong>РЕЗУЛЬТАТ</strong>
+
+        Не найти виноватого,
+        а улучшить способ работы.
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 13
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Шаблон цели для руководителя
+        </h2>
+
+        <div class="section-number">
+            12
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>1. БИЗНЕС-ПРОБЛЕМА</h3>
+
+        <p>
+            Что сейчас не устраивает /
+            где есть потенциал улучшения?
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card cyan">
+
+        <h3>2. ЦЕЛЬ СПРИНТА</h3>
+
+        <p>
+            Какое конкретное изменение
+            должно произойти?
+        </p>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="cards">
+
+        <div class="card green">
+
+            <h3>3. КРИТЕРИЙ УСПЕХА</h3>
+
+            <p>
+                Показатель / факт,
+                по которому примем результат.
+            </p>
+
+        </div>
+
+
+        <div class="card orange">
+
+            <h3>4. ОГРАНИЧЕНИЯ</h3>
+
+            <p>
+                Срок, ресурсы,
+                зависимости, риски.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <br>
+
+
+    <div class="card">
+
+        <h3>5. КЛЮЧЕВЫЕ ДЕЙСТВИЯ</h3>
+
+        <p>
+            3–7 действий, которые реально ведут к цели.
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 14
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Практика: ставим цель на следующий спринт
+        </h2>
+
+        <div class="section-number">
+            13
+        </div>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            Шаг 1 — каждый руководитель выбирает
+            одну реальную бизнес-проблему.
+        </li>
+
+        <li>
+            Шаг 2 — формулирует цель одним предложением.
+        </li>
+
+        <li>
+            Шаг 3 — добавляет измеримый критерий успеха.
+        </li>
+
+        <li>
+            Шаг 4 — определяет 3–7 ключевых действий.
+        </li>
+
+        <li>
+            Шаг 5 — коллеги проверяют:
+            цель понятна? измерима? достижима?
+            действительно важна?
+        </li>
+
+    </ul>
+
+
+    <div class="formula">
+
+        <strong>ВРЕМЯ</strong>
+
+        15 минут индивидуально + 15 минут разбор
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 15
+===================================================== -->
+
+<section class="slide">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            Чек-лист руководителя перед стартом
+        </h2>
+
+        <div class="section-number">
+            14
+        </div>
+
+    </div>
+
+
+    <div class="checklist">
+
+        <div class="check">
+            <span>✓</span>
+            Команда понимает,
+            зачем эта цель нужна.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Есть один главный результат,
+            а не список желаний.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Критерий успеха можно
+            проверить по факту.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Объём соответствует
+            горизонту цикла.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Понятно, кто отвечает
+            за результат.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Известны ключевые
+            зависимости и риски.
+        </div>
+
+        <div class="check">
+            <span>✓</span>
+            Есть механизм раннего
+            поднятия блокеров.
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SLIDE 16
+===================================================== -->
+
+<section class="slide final">
+
+    <div class="header">
+
+        <div class="header-accent"></div>
+
+        <h2>
+            SCRUM ДЛЯ РУКОВОДИТЕЛЯ — ЭТО
+        </h2>
+
+    </div>
+
+
+    <ul class="bullets">
+
+        <li>
+            не больше задач, а больше фокуса;
+        </li>
+
+        <li>
+            не больше контроля, а больше прозрачности;
+        </li>
+
+        <li>
+            не «успеть всё», а выбрать главное;
+        </li>
+
+        <li>
+            не отчётность ради отчётности,
+            а быстрый цикл улучшений.
+        </li>
+
+    </ul>
+
+
+    <div class="final-question">
+        Главный вопрос каждого цикла:
+    </div>
+
+
+    <div class="final-answer">
+        «Какое изменение мы должны получить?»
+    </div>
+
+</section>
+
+
+</div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<div class="navigation">
+
+    <button
+        class="nav-button"
+        onclick="previousSlide()">
+        ‹
+    </button>
+
+
+    <div class="progress">
+
+        <div
+            class="progress-bar"
+            id="progressBar">
+        </div>
+
+    </div>
+
+
+    <div
+        class="slide-counter"
+        id="slideCounter">
+        1 / 16
+    </div>
+
+
+    <button
+        class="nav-button"
+        onclick="nextSlide()">
+        ›
+    </button>
+
+
+    <button
+        class="nav-button fullscreen"
+        onclick="toggleFullscreen()"
+        title="Полный экран">
+        ⛶
+    </button>
+
+</div>
+
+
+<script>
+
+/* =====================================================
+   PRESENTATION ENGINE
+===================================================== */
+
+const slides =
+    document.querySelectorAll('.slide');
+
+const progressBar =
+    document.getElementById('progressBar');
+
+const slideCounter =
+    document.getElementById('slideCounter');
+
+let currentSlide = 0;
+
+
+/* Показать слайд */
+
+function showSlide(index) {
+
+    if (index < 0) {
+        index = 0;
+    }
+
+    if (index >= slides.length) {
+        index = slides.length - 1;
+    }
+
+    slides.forEach(function(slide) {
+
+        slide.classList.remove('active');
+
+    });
+
+    slides[index].classList.add('active');
+
+    currentSlide = index;
+
+    updateNavigation();
+
+}
+
+
+/* Навигация */
+
+function nextSlide() {
+
+    if (currentSlide < slides.length - 1) {
+
+        showSlide(currentSlide + 1);
+
+    }
+
+}
+
+
+function previousSlide() {
+
+    if (currentSlide > 0) {
+
+        showSlide(currentSlide - 1);
+
+    }
+
+}
+
+
+/* Обновление прогресса */
+
+function updateNavigation() {
+
+    const progress =
+        ((currentSlide + 1) / slides.length) * 100;
+
+    progressBar.style.width =
+        progress + '%';
+
+    slideCounter.textContent =
+        `${currentSlide + 1} / ${slides.length}`;
+
+}
+
+
+/* =====================================================
+   KEYBOARD
+===================================================== */
+
+document.addEventListener('keydown', function(event) {
+
+    switch (event.key) {
+
+        case 'ArrowRight':
+        case 'ArrowDown':
+        case ' ':
+        case 'PageDown':
+
+            event.preventDefault();
+
+            nextSlide();
+
+            break;
+
+
+        case 'ArrowLeft':
+        case 'ArrowUp':
+        case 'PageUp':
+
+            event.preventDefault();
+
+            previousSlide();
+
+            break;
+
+
+        case 'Home':
+
+            event.preventDefault();
+
+            showSlide(0);
+
+            break;
+
+
+        case 'End':
+
+            event.preventDefault();
+
+            showSlide(slides.length - 1);
+
+            break;
+
+
+        case 'f':
+        case 'F':
+
+            toggleFullscreen();
+
+            break;
+
+    }
+
+});
+
+
+/* =====================================================
+   FULLSCREEN
+===================================================== */
+
+function toggleFullscreen() {
+
+    if (!document.fullscreenElement) {
+
+        document.documentElement
+            .requestFullscreen()
+            .catch(function() {});
+
+    } else {
+
+        document.exitFullscreen();
+
+    }
+
+}
+
+
+/* =====================================================
+   TOUCH / SWIPE
+===================================================== */
+
+let touchStartX = 0;
+
+let touchEndX = 0;
+
+
+document.addEventListener(
+    'touchstart',
+    function(event) {
+
+        touchStartX =
+            event.changedTouches[0].screenX;
+
+    },
+    false
+);
+
+
+document.addEventListener(
+    'touchend',
+    function(event) {
+
+        touchEndX =
+            event.changedTouches[0].screenX;
+
+        handleSwipe();
+
+    },
+    false
+);
+
+
+function handleSwipe() {
+
+    const distance =
+        touchEndX - touchStartX;
+
+
+    if (Math.abs(distance) < 50) {
+
+        return;
+
+    }
+
+
+    if (distance < 0) {
+
+        nextSlide();
+
+    } else {
+
+        previousSlide();
+
+    }
+
+}
+
+
+/* =====================================================
+   INITIALIZATION
+===================================================== */
+
+showSlide(0);
+
+</script>
+
+
+</body>
+</html>
